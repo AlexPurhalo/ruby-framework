@@ -22,4 +22,12 @@ RSpec.describe do
       expect(subject.call(env)).to eq [201, {}, ['post test']]
     end
   end
+
+  context 'when wrong address for request' do
+    let(:env) { { 'REQUEST_PATH' => '/abaglamaga', 'REQUEST_METHOD' => 'GET' } }
+
+    it 'matches request' do
+      expect(subject.call(env)).to eq [404, {}, ['Not found :(']]
+    end
+  end
 end
